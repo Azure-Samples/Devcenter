@@ -1,0 +1,27 @@
+{
+    "version": "0.2",
+    "ignorePaths": [
+        ".config/**"
+    ],
+    "ignoreRegExpList": [
+        "/^\\s*```[\\s\\S]*?^\\s*```/gm",
+        "```[a-z]*[\\s\\S]*?```",
+        "`[a-z]*[\\s\\S]*?`"
+    ],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "language": "en_US",
+    "words": [
+        "Devcenter",
+        "jumpstart",
+        "Quickstart"
+    ],
+    "ignoreWords": [],
+    "import": [],
+    "enableFiletypes": [
+        "md",
+        "!jsonc",
+        "!yml",
+        "json"
+    ]
+}
