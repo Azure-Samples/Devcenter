@@ -53,7 +53,7 @@ To complete the steps in this guide, you will need the Azure CLI and the GitHub 
 ## Clone the repository
 
 ```bash
-git clone https://github.com/Gordonby/Devcenter.git
+git clone https://github.com/Azure-Samples/Devcenter.git
 cd Devcenter
 ```
 
