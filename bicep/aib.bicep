@@ -59,7 +59,7 @@ var imageDefinitionMap = {
 }
 
 @allowed(['vs2022win11m365', 'win11'])
-param imagebase string = 'vs2022win11m365'
+param imagebase string = 'win11'
 
 param imageSkuName string = '${imagebase}-${join(imageCustomisationOptions,'-')}'
 param imageSkuVersion string ='1-0-0'
