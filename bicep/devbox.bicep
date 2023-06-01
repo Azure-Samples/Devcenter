@@ -1,7 +1,22 @@
 param nameseed string = 'dbox'
 param location string = resourceGroup().location
+
+@description('For a multi region scenarios, new vnets and pools will be created for the project')
+param extraLocations array = []
+
 param devcenterName string
 param projectTeamName string = 'developers'
+
+var scheduleProperties = {
+  frequency: 'Daily'
+  state: 'Enabled'
+  type: 'StopDevBox'
+  timeZone: 'America/Los_Angeles'
+  time: '18:00'
+}
+
+@description('All locations, in one array')
+var allLocations = concat([location],extraLocations)
 
 resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' existing = {
   name: devcenterName
@@ -29,59 +44,41 @@ module vs2022 'devboxdef.bicep' = {
   }
 }
 
-module networking 'devboxNetworking.bicep' = {
-  name: '${deployment().name}-Networking'
+module networkingLocations 'devboxNetworking.bicep' = [for (loc, i) in allLocations: {
+  name: '${deployment().name}-Networking-${loc}'
   params: {
     devcenterName: dc.name
-    location: location
+    location: loc
     nameseed: nameseed
   }
-}
+}]
 
-resource win11ProjectPool 'Microsoft.DevCenter/projects/pools@2022-11-11-preview' = {
-  name: '${projectTeamName}-win11plain'
+resource win11ProjectPool 'Microsoft.DevCenter/projects/pools@2023-01-01-preview' = [ for (loc, i) in allLocations: {
+  name: '${projectTeamName}-win11plain-${loc}'
   location: location
   parent: project
   properties: {
     devBoxDefinitionName: win11plain.outputs.definitionName
     licenseType: 'Windows_Client'
     localAdministrator: 'Enabled'
-    networkConnectionName: networking.outputs.attachedNetworkName
+    networkConnectionName: networkingLocations[i].outputs.attachedNetworkName
   }
-  
-  
-  resource scheduleStop 'schedules' = {
-    name: 'default' //Currently we only support one schedule for a pool and the schedule name can only be 'default'"
-    properties: {
-      frequency: 'Daily'
-      state: 'Enabled'
-      type: 'StopDevBox'
-      timeZone: 'America/Los_Angeles'
-      time: '18:00'
-    }
-  }
-}
+}]
 
-resource vsProjectPool 'Microsoft.DevCenter/projects/pools@2022-11-11-preview' = {
-  name: '${projectTeamName}-vs2022'
+resource vsProjectPool 'Microsoft.DevCenter/projects/pools@2023-01-01-preview' =  [ for (loc, i) in allLocations: {
+  name: '${projectTeamName}-vs2022-${loc}'
   location: location
   parent: project
   properties: {
     devBoxDefinitionName: vs2022.outputs.definitionName
     licenseType: 'Windows_Client'
     localAdministrator: 'Enabled'
-    networkConnectionName: networking.outputs.attachedNetworkName
+    networkConnectionName: networkingLocations[i].outputs.attachedNetworkName
   }
-  
-  
-  resource scheduleStop 'schedules' = {
-    name: 'default' //Currently we only support one schedule for a pool and the schedule name can only be 'default'"
-    properties: {
-      frequency: 'Daily'
-      state: 'Enabled'
-      type: 'StopDevBox'
-      timeZone: 'America/Los_Angeles'
-      time: '18:00'
-    }
-  }
-}
+}]
+
+@description('This loop expression might look complex, but it is simply just creating a schedule for every pool in every region')
+resource scheduleStop 'Microsoft.DevCenter/projects/pools/schedules@2023-01-01-preview' =  [ for (loc, i) in allLocations: {
+  name: '${projectTeamName}/${projectTeamName}-${i % 2 == 0 ? 'win11plain' : 'vs2022'}-${loc}/default'
+  properties: scheduleProperties
+}]
