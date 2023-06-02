@@ -3,28 +3,30 @@ param location string = resourceGroup().location
 param devcenterName string
 
 param subnetName string = 'sn-devpools'
+param vnetAddress string = '10.0.0.0/16'
+param subnetAddress string = '10.0.0.0/24'
 
 @description('The name of a new resource group that will be created to store some Networking resources (like NICs) in')
-param networkingResourceGroupName string = '${resourceGroup().name}-networking'
+param networkingResourceGroupName string = '${resourceGroup().name}-networking-${location}'
 
 resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' existing = {
   name: devcenterName
 }
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2022-07-01' = {
-  name: 'vnet-${nameseed}'
+  name: 'vnet-${nameseed}-${location}'
   location: location
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.0.0.0/16'
+        vnetAddress
       ]
     }
     subnets: [
       {
         name: subnetName
         properties: {
-          addressPrefix: '10.0.0.0/24'
+          addressPrefix: subnetAddress
         }
       }
     ]
@@ -32,7 +34,7 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2022-07-01' = {
 }
 
 resource networkconnection 'Microsoft.DevCenter/networkConnections@2022-11-11-preview' = {
-  name: 'con-${nameseed}'
+  name: 'con-${nameseed}-${location}'
   location: location
   properties: {
     domainJoinType: 'AzureADJoin'

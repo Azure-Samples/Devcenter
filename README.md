@@ -211,6 +211,16 @@ az role assignment create --assignee $DEVUSER --role "Deployment Environments Us
 
 ```
 
+### Multi-region
+
+Having Dev Boxes available in an Azure region closest to your users is recommended. Where your developers are geographically dispersed you should deploy Dev Box Pools to additional regions to ensure low latency Dev Boxes.
+
+To create a multi-region configuration for your Dev Centre, use the `extraLocations` parameter. This will create regionalised Virtual Networks, Network Connections and Dev Box Pools for the additional locations.
+
+```bash
+az deployment group create -g $RG -f bicep/devbox.bicep -p devcenterName=$DCNAME extraLocations="[\"uksouth\"]"
+```
+
 ### Deploying into an existing subnet
 
 `todo`
