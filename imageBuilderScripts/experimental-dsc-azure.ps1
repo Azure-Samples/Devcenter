@@ -43,4 +43,4 @@ $content = @"
 "@
 $content | Set-Content $path
 
-winget configure .\azure-tools.dsc.yaml
+winget configure -f .\azure-tools.dsc.yaml --accept-configuration-agreements
