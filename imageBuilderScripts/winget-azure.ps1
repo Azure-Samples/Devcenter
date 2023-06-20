@@ -1,14 +1,6 @@
 # Install a pre-release version of Winget
 $progressPreference = 'silentlyContinue'
-$latestWingetMsixBundleUri = $(Invoke-RestMethod https://api.github.com/repos/microsoft/winget-cli/releases/Pre-release).assets.browser_download_url | Where-Object { $_.EndsWith(".msixbundle") }
 $latestWingetMsixBundleUri = $(Invoke-RestMethod https://github.com/microsoft/winget-cli/releases/1.6.1573-preview).assets.browser_download_url | Where-Object { $_.EndsWith(".msixbundle") }
-
-$latestWingetMsixBundle = $latestWingetMsixBundleUri.Split("/")[-1]
-Write-Information "Downloading winget to artifacts directory..."
-Invoke-WebRequest -Uri $latestWingetMsixBundleUri -OutFile "./$latestWingetMsixBundle"
-Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
-#Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
-Add-AppxPackage $latestWingetMsixBundle
 
 Write-Information "Installing winget..."
 $progressPreference = 'silentlyContinue'

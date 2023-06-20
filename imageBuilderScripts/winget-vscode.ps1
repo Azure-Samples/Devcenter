@@ -1,3 +1,7 @@
+# Install a pre-release version of Winget
+$progressPreference = 'silentlyContinue'
+$latestWingetMsixBundleUri = $(Invoke-RestMethod https://github.com/microsoft/winget-cli/releases/1.6.1573-preview).assets.browser_download_url | Where-Object { $_.EndsWith(".msixbundle") }
+
 Write-Information "Installing winget..."
 $progressPreference = 'silentlyContinue'
 $latestWingetMsixBundleUri = "https://github.com/microsoft/winget-cli/releases/download/v1.6.1573-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
