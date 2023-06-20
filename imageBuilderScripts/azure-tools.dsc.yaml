@@ -14,20 +14,20 @@ properties:
         id: 7zip.7zip
         source: winget
     - resource: Microsoft.WinGet
-      id: Adobe.AdobeAcrobatReaderDC
+      id: Adobe.Acrobat.Reader.64-bit
       directives:
         description: Install Adobe Acrobat Reader DC
         allowPrerelease: true
       settings:
-        id: Adobe.AdobeAcrobatReaderDC
+        id: Adobe.Acrobat.Reader.64-bit
         source: winget
     - resource: Microsoft.WinGet
-      id: Microsoft.AzCopy
+      id: Microsoft.Azure.AZCopy.10
       directives:
         description: Install AzCopy
         allowPrerelease: true
       settings:
-        id: Microsoft.AzCopy
+        id: Microsoft.Azure.AZCopy.10
         source: winget
     - resource: Microsoft.WinGet
       id: Microsoft.AzureCLI
@@ -38,12 +38,12 @@ properties:
         id: Microsoft.AzureCLI
         source: winget
     - resource: Microsoft.WinGet
-      id: Microsoft.AzureIoTInstaller
+      id: Microsoft.Azure.IoTExplorer
       directives:
         description: Install Azure IoT Installer
         allowPrerelease: true
       settings:
-        id: Microsoft.AzureIoTInstaller
+        id: Microsoft.Azure.IoTExplorer
         source: winget
     - resource: Microsoft.WinGet
       id: Docker.DockerDesktop
