@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+# Reference: https://github.com/microsoft/vscode/wiki/How-to-Contribute
+
+properties:
+  resources:
+    - resource: Microsoft.WinGet
+      id: Microsoft.AzCopy
+      directives:
+        description: Install AzCopy
+        allowPrerelease: true
+      settings:
+        id: Microsoft.AzCopy
+        source: winget
+    - resource: Microsoft.WinGet
+      id: Microsoft.VisualStudioCode
+      directives:
+        description: Install Visual Studio Code
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudioCode
+        source: winget
+    - resource: Microsoft.WinGet
+      id: Microsoft.PowerShell
+      directives:
+        description: Install PowerShell
+        allowPrerelease: true
+      settings:
+        id: Microsoft.PowerShell
+        source: winget
+    - resource: Microsoft.WinGet
+      id: Microsoft.AzureCLI
+      directives:
+        description: Install Azure CLI
+        allowPrerelease: true
+      settings:
+        id: Microsoft.AzureCLI
+        source: winget
+    - resource: Microsoft.WinGet
+      id: Kubernetes.kubectl
+      directives:
+        description: Install kubectl
+        allowPrerelease: true
+      settings:
+        id: Kubernetes.kubectl
+        source: winget
+    - resource: Microsoft.WinGet
+      id: Git.Git
+      directives:
+        description: Install Git
+        allowPrerelease: true
+      settings:
+        id: Git.Git
+        source: winget
+    - resource: Microsoft.WinGet
+      id: Kubernetes.Helm
+      directives:
+        description: Install Helm
+        allowPrerelease: true
+      settings:
+        id: Kubernetes.Helm
+        source: winget
+  configurationVersion: "0.2.0"
