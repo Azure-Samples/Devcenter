@@ -81,6 +81,10 @@ resource vsProjectPool 'Microsoft.DevCenter/projects/pools@2023-01-01-preview' =
 @description('This loop expression might look complex, but it is simply just creating a schedule for every pool in every region')
 resource scheduleStop 'Microsoft.DevCenter/projects/pools/schedules@2023-01-01-preview' =  [ for (loc, i) in allLocations: {
   name: '${projectTeamName}/${projectTeamName}-${i % 2 == 0 ? 'win11plain' : 'vs2022'}-${loc}/default'
+  dependsOn: [
+    win11ProjectPool[i]
+    vsProjectPool[i]
+  ]
   properties: {
     frequency: 'Daily'
     state: 'Enabled'
