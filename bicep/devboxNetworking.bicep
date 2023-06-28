@@ -9,7 +9,7 @@ param subnetAddress string = '10.0.0.0/24'
 @description('The name of a new resource group that will be created to store some Networking resources (like NICs) in')
 param networkingResourceGroupName string = '${resourceGroup().name}-networking-${location}'
 
-resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' existing = {
+resource dc 'Microsoft.DevCenter/devcenters@2023-04-01' existing = {
   name: devcenterName
 }
 
@@ -33,7 +33,7 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2022-07-01' = {
   }
 }
 
-resource networkconnection 'Microsoft.DevCenter/networkConnections@2022-11-11-preview' = {
+resource networkconnection 'Microsoft.DevCenter/networkConnections@2023-04-01' = {
   name: 'con-${nameseed}-${location}'
   location: location
   properties: {
@@ -43,7 +43,7 @@ resource networkconnection 'Microsoft.DevCenter/networkConnections@2022-11-11-pr
   }
 }
 
-resource attachedNetwork 'Microsoft.DevCenter/devcenters/attachednetworks@2022-11-11-preview' = {
+resource attachedNetwork 'Microsoft.DevCenter/devcenters/attachednetworks@2023-04-01' = {
   name: 'dcon-${nameseed}-${location}'
   parent: dc
   properties: {

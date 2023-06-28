@@ -19,11 +19,11 @@ var regionTimeZones = loadJsonContent('azure-region-lookup.json')
 @description('All locations, in one array')
 var allLocations = concat([location],extraLocations)
 
-resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' existing = {
+resource dc 'Microsoft.DevCenter/devcenters@2023-04-01' existing = {
   name: devcenterName
 }
 
-resource project 'Microsoft.DevCenter/projects@2022-11-11-preview' existing = {
+resource project 'Microsoft.DevCenter/projects@2023-04-01' existing = {
   name: projectTeamName
 }
 
@@ -54,7 +54,7 @@ module networkingLocations 'devboxNetworking.bicep' = [for (loc, i) in allLocati
   }
 }]
 
-resource win11ProjectPool 'Microsoft.DevCenter/projects/pools@2023-01-01-preview' = [ for (loc, i) in allLocations: {
+resource win11ProjectPool 'Microsoft.DevCenter/projects/pools@2023-04-01' = [ for (loc, i) in allLocations: {
   name: '${projectTeamName}-win11plain-${loc}'
   location: location
   parent: project
@@ -66,7 +66,7 @@ resource win11ProjectPool 'Microsoft.DevCenter/projects/pools@2023-01-01-preview
   }
 }]
 
-resource vsProjectPool 'Microsoft.DevCenter/projects/pools@2023-01-01-preview' =  [ for (loc, i) in allLocations: {
+resource vsProjectPool 'Microsoft.DevCenter/projects/pools@2023-04-01' =  [ for (loc, i) in allLocations: {
   name: '${projectTeamName}-vs2022-${loc}'
   location: location
   parent: project
@@ -79,7 +79,7 @@ resource vsProjectPool 'Microsoft.DevCenter/projects/pools@2023-01-01-preview' =
 }]
 
 @description('This loop expression might look complex, but it is simply just creating a schedule for every pool in every region')
-resource scheduleStop 'Microsoft.DevCenter/projects/pools/schedules@2023-01-01-preview' =  [ for (loc, i) in allLocations: {
+resource scheduleStop 'Microsoft.DevCenter/projects/pools/schedules@2023-04-01' =  [ for (loc, i) in allLocations: {
   name: '${projectTeamName}/${projectTeamName}-${i % 2 == 0 ? 'win11plain' : 'vs2022'}-${loc}/default'
   properties: {
     frequency: 'Daily'

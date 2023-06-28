@@ -21,22 +21,22 @@ var defaultImageMap = {
   vs2022win11m365: 'microsoftvisualstudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2'
 }
 
-resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' existing = {
+resource dc 'Microsoft.DevCenter/devcenters@2023-04-01' existing = {
   name: devcenterName
 }
 
-resource gallery 'Microsoft.DevCenter/devcenters/galleries@2022-11-11-preview' existing = {
+resource gallery 'Microsoft.DevCenter/devcenters/galleries@2023-04-01' existing = {
   name: galleryName
   parent: dc
 }
 
-resource galleryimage 'Microsoft.DevCenter/devcenters/galleries/images@2022-11-11-preview' existing = {
+resource galleryimage 'Microsoft.DevCenter/devcenters/galleries/images@2023-04-01' existing = {
   name: defaultImageMap['${image}']
   parent: gallery
 }
 output imageGalleryId string = galleryimage.id
 
-resource devboxdef 'Microsoft.DevCenter/devcenters/devboxdefinitions@2022-11-11-preview' = {
+resource devboxdef 'Microsoft.DevCenter/devcenters/devboxdefinitions@2023-04-01' = {
   name: definitionName
   parent: dc
   location: location
