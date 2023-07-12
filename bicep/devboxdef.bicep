@@ -10,7 +10,7 @@ param image string = 'win11'
 
 var sku = skuMap.vm8core32memory
 var skuMap = {
-  vm8core32memory: 'general_a_8c32gb_v1'
+  vm8core32memory: 'general_i_8c32gb256ssd_v2'
 }
 
 @allowed(['ssd_256gb', 'ssd_512gb', 'ssd_1024gb'])
