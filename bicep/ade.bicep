@@ -11,11 +11,11 @@ param adeProjectUser string = ''
 @description('A PAT token is required, even for public repos')
 param catalogRepoPat string
 
-resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' existing = {
+resource dc 'Microsoft.DevCenter/devcenters@2023-04-01' existing = {
   name: devcenterName
 }
 
-resource project 'Microsoft.DevCenter/projects@2022-11-11-preview' existing = {
+resource project 'Microsoft.DevCenter/projects@2023-04-01' existing = {
   name: projectTeamName
 }
 
@@ -46,12 +46,12 @@ module rbac 'devboxrbac.bicep' = {
   }
 }
 
-resource env 'Microsoft.DevCenter/devcenters/environmentTypes@2022-11-11-preview' = {
+resource env 'Microsoft.DevCenter/devcenters/environmentTypes@2023-04-01' = {
   name: environmentName
   parent: dc
 }
 
-resource catalog 'Microsoft.DevCenter/devcenters/catalogs@2022-11-11-preview' = {
+resource catalog 'Microsoft.DevCenter/devcenters/catalogs@2023-04-01' = {
   name: catalogName
   parent: dc
   properties: {
@@ -65,7 +65,7 @@ resource catalog 'Microsoft.DevCenter/devcenters/catalogs@2022-11-11-preview' = 
 }
 
 param environmentTypes array = ['Dev', 'Test', 'Staging']
-resource envs 'Microsoft.DevCenter/devcenters/environmentTypes@2022-11-11-preview' = [for envType in environmentTypes :{
+resource envs 'Microsoft.DevCenter/devcenters/environmentTypes@2023-04-01' = [for envType in environmentTypes :{
   name: envType
   parent: dc
 }] 
@@ -80,7 +80,7 @@ var rbacRoleId = {
 }
 output dti string = deploymentTargetId
 
-resource projectAssign 'Microsoft.DevCenter/projects/environmentTypes@2022-11-11-preview' =  [for envType in environmentTypes : {
+resource projectAssign 'Microsoft.DevCenter/projects/environmentTypes@2023-04-01' =  [for envType in environmentTypes : {
   name: envType
   parent: project
   identity: {
