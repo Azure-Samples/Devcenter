@@ -6,11 +6,11 @@ param nameseed string = 'dbox'
 
 param devcenterName string
 
-resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' existing = {
+resource dc 'Microsoft.DevCenter/devcenters@2023-04-01' existing = {
   name: devcenterName
 }
 
-resource dcGallery 'Microsoft.DevCenter/devcenters/galleries@2022-11-11-preview' = {
+resource dcGallery 'Microsoft.DevCenter/devcenters/galleries@2023-04-01' = {
   name: 'ig${nameseed}'
   parent: dc
   properties: {
@@ -95,7 +95,7 @@ var imageBuildName = take('${imageName}-${imageSkuVersion}_${newguid}_Build',64)
 @description('A unique string generated for each deployment, to make sure the script is always run.')
 param newguid string = newGuid()
 
-resource templateIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = {
+resource templateIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: 'id-${nameseed}'
   location: location
 }

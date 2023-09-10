@@ -8,21 +8,21 @@ param devcenterGalleryName string
 @allowed(['ssd_256gb', 'ssd_512gb', 'ssd_1024gb'])
 param storage string = 'ssd_256gb'
 
-resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' existing = {
+resource dc 'Microsoft.DevCenter/devcenters@2023-04-01' existing = {
   name: devcenterName
 }
 
-resource dcGallery 'Microsoft.DevCenter/devcenters/galleries@2022-11-11-preview' existing = {
+resource dcGallery 'Microsoft.DevCenter/devcenters/galleries@2023-04-01' existing = {
   name: devcenterGalleryName
   parent: dc
 }
 
-resource galleryimage 'Microsoft.DevCenter/devcenters/galleries/images@2022-11-11-preview' existing = {
+resource galleryimage 'Microsoft.DevCenter/devcenters/galleries/images@2023-04-01' existing = {
   name: imageName
   parent: dcGallery
 }
 
-resource devboxdef 'Microsoft.DevCenter/devcenters/devboxdefinitions@2022-11-11-preview' = {
+resource devboxdef 'Microsoft.DevCenter/devcenters/devboxdefinitions@2023-04-01' = {
   name: imageName
   parent: dc
   location: location

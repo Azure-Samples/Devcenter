@@ -8,7 +8,7 @@ param devboxProjectUser string
 @description('Provide the AzureAd UserId to assign project rbac for (get the current user with az ad signed-in-user show --query id)')
 param devboxProjectAdmin string = ''
 
-resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' = {
+resource dc 'Microsoft.DevCenter/devcenters@2023-04-01' = {
   name: 'dc-${nameseed}'
   location: location
   identity: {
@@ -16,7 +16,7 @@ resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' = {
   }
 }
 
-resource project 'Microsoft.DevCenter/projects@2022-11-11-preview' = {
+resource project 'Microsoft.DevCenter/projects@2023-04-01' = {
   name: projectTeamName
   location: location
   properties: {
