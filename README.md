@@ -50,6 +50,8 @@ It doesn't work with invited (B2B) identities, so users will need to be directly
 
 To complete the steps in this guide, you will need the Azure CLI and the GitHub CLI.
 
+Note: The below code snippets are in `bash`. If you prefer to use `PowerShell`, slight modifications are required.
+
 ## Clone the repository
 
 ```bash
